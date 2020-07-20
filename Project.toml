@@ -1,0 +1,6 @@
+name = "TensorLab"
+uuid = "6a881bdb-db50-464d-9df7-31fb0090d057"
+version = "0.1.0"
+
+[deps]
+MATLAB = "10e44e05-a98a-55b3-a45b-ba969058deb6"
