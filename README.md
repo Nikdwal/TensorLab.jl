@@ -35,3 +35,5 @@ julia> decomp = cpd(A, 5)
 julia> backward_err = norm(A - cpdgen(decomp)) / norm(A)
 1.5599461118370736e-16
 ```
+
+If anything is missing, you may alternatively use the MATLAB.jl package and write the MATLAB code yourself.
