@@ -4,7 +4,7 @@ This is a Julia port of The [Tensorlab](https://tensorlab.net) library.
 
 You must have [MATLAB](https://www.mathworks.com/products/matlab.html) installed with Tensorlab in its default path, e.g. in `pathdef.m`.
 
-# Getting started
+## Getting started
 
 The main functions implemented in Tensorlab can be accessed as a Julia function with the same name. The following Julia code is used to compute the CPD of a 5x5x5 tensor.
 
