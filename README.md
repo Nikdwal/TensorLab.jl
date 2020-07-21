@@ -37,7 +37,7 @@ Uhat = cpd(A,10,options);
 
 - Function handles are encoded in the `MatFcn` type. Thus, whenever you wish to pass a function handle for the MATLAB function `f` to Tensorlab from Julia, pass it as `MatFcn("f")`. This is equivalent to `@f` in MATLAB.
 - The `Options` object is the proper way to pass a struct with options to Tensorlab. First, initialise an object as `options = Options()`. From then onwards, you can add fields as you would in MATLAB. If one of those fields is another `Options` objects, it must be explicitly initialised as such. See the example above.
-- MATLAB code (including Tensorlab) is **not** [type stable](https://docs.julialang.org/en/v1/manual/performance-tips/index.html#Annotate-values-taken-from-untyped-locations-1), which is one of the reasons it performs poorly. If you want the Julia code that uses results from Tensorlab to achieve high performance, you **must** give an explicit type declaration to values returned by Tensorlab. In general, this can only be done if you know what values are passed to the library functions, rather than merely what the types of these values are.
+- MATLAB code (including Tensorlab) is **not** [type stable](https://docs.julialang.org/en/v1/manual/performance-tips/index.html#Annotate-values-taken-from-untyped-locations-1), which is one of the reasons it performs poorly. If you want the Julia code that uses results from Tensorlab to achieve high performance, you **must** give an explicit type declaration to values returned by Tensorlab. In general, this can only be done if you know what values are passed to the library functions, rather than merely what the types of these values are. As a result, ensuring type stability (performance) by explicit type declaration is the user's responsibility.
 
 <hr>
 
