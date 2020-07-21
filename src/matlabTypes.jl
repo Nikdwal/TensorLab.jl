@@ -8,7 +8,7 @@ using MATLAB
 mxarray(a :: Int) = mxarray(Float64(a))
 
 # data types frequently returned by Tensorlab functions
-MatlabNum    = Union{Float64, ComplexF64}
+MatlabNum    = Float64
 MatlabStruct = Dict{String, Any}
 cpd_type     = Matrix{Matrix{MatlabNum}}
 lmlra_type   = Tuple{Matrix{Matrix{MatlabNum}}, Array{MatlabNum}}
@@ -27,7 +27,7 @@ struct Options
 	Options() = new(Dict([]))
 end
 
-show(io :: IO, options :: Options) = show(io, options.dict)
+#show(io :: IO, options :: Options) = show(io, options.dict)
 getindex(options :: Options, key...) = getindex(options.dict, key...)
 setindex!(options :: Options, value, key...) = setindex!(options.dict, value, key...)
 getproperty(options :: Options, name :: Symbol) = name == :dict ? getfield(options, name) : getindex(options.dict, string(name))
@@ -38,16 +38,25 @@ function convertMatFcn(sess :: MSession, name :: Symbol, fcn :: MatFcn)
 	eval_string(sess, string(name, " = str2func('", fcn.funcName, "');"))
 end
 
+# Put the MatFcn into MATLAB as a function handle
 function put_variable(sess :: MSession, name :: Symbol, fcn :: MatFcn)
 	put_variable(sess, name, fcn.funcName)
 	convertMatFcn(sess, name, fcn)
 end
 
+# Put the Options into MATLAB where all the subfields of type Options and
+# MatFcn are converted correctly
 function put_variable(sess :: MSession, name :: Symbol, options :: Options)
 	put_variable(sess, name, options.dict)
 	for (option, value) in options.dict
 		if typeof(value) <: MatFcn
 			convertMatFcn(sess, Symbol(string(string(name), ".", option)), value)
+		elseif typeof(value) <: Options
+			# save recursively
+			tmpname = "jl_temp_var"
+			put_variable(sess, Symbol(tmpname), value)
+			eval_string(sess, string(name, ".", option, " = ", tmpname, ";"))
+			eval_string(sess, string("clear ", tmpname))
 		end
 	end
 end
