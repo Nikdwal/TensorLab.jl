@@ -7,15 +7,6 @@ using MATLAB
 # is actually an int.
 mxarray(a :: Int) = mxarray(Float64(a))
 
-# data types frequently returned by Tensorlab functions
-MatlabNum    = Float64
-MatlabStruct = Dict{String, Any}
-cpd_type     = Matrix{Matrix{MatlabNum}}
-lmlra_type   = Tuple{Matrix{Matrix{MatlabNum}}, Array{MatlabNum}}
-mlsvd_type   = Tuple{Matrix{Matrix{MatlabNum}}, Array{MatlabNum}, Matrix{Vector{MatlabNum}}}
-fmt_type     = Union{Array{MatlabNum}, Dict{String, Any}}
-ll1_type     = Matrix{Matrix{Array{MatlabNum}}}
-
 # equivalent of a function handle in MATLAB 
 mutable struct MatFcn
 	funcName :: String
