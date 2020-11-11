@@ -12,13 +12,19 @@ mutable struct MatFcn
 	funcName :: String
 end
 
+show(io :: IO, fcn :: MatFcn) = print(io, "@"*fcn.funcName)
+
 # make an options type whose syntax is very similar to that of MATLAB structs 
 struct Options
 	dict :: Dict{String, Any}
 	Options() = new(Dict([]))
 end
 
-#show(io :: IO, options :: Options) = show(io, options.dict)
+function show(io :: IO, o :: Options)
+	print(io, "Options consisting of ")
+	show(io, MIME"text/plain"(), o.dict)
+end
+
 getindex(options :: Options, key...) = getindex(options.dict, key...)
 setindex!(options :: Options, value, key...) = setindex!(options.dict, value, key...)
 getproperty(options :: Options, name :: Symbol) = name == :dict ? getfield(options, name) : getindex(options.dict, string(name))

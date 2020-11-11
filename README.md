@@ -1,8 +1,15 @@
 TensorLab.jl
 ==============
-This is a Julia port of The [Tensorlab](https://tensorlab.net) library.
+This package contains Julia bindings for the the [Tensorlab](https://tensorlab.net) library in MATLAB.
 
 You must have [MATLAB](https://www.mathworks.com/products/matlab.html) installed with Tensorlab in its default path, e.g. in `pathdef.m`.
+
+## Installation
+
+```
+julia> # Type the ] character
+pkg> add https://github.com/Nikdwal/TensorLab.jl
+```
 
 ## Getting started
 
